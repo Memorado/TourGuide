@@ -13,12 +13,12 @@ import android.view.animation.BounceInterpolator;
 public class ToolTip {
     public String mTitle, mDescription;
     public int mBackgroundColor, mTextColor;
-    public Animation mEnterAnimation, mExitAnimation;
+    public Animation mEnterAnimation;
     public boolean mShadow;
     public int mGravity;
     public View.OnClickListener mOnClickListener;
 
-    public ToolTip(){
+    public ToolTip() {
         /* default values */
         mTitle = "";
         mDescription = "";
@@ -34,85 +34,85 @@ public class ToolTip {
         // TODO: exit animation
         mGravity = Gravity.CENTER;
     }
+
     /**
      * Set title text
+     *
      * @param title
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setTitle(String title){
+    public ToolTip setTitle(String title) {
         mTitle = title;
         return this;
     }
 
     /**
      * Set description text
+     *
      * @param description
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setDescription(String description){
+    public ToolTip setDescription(String description) {
         mDescription = description;
         return this;
     }
 
     /**
      * Set background color
+     *
      * @param backgroundColor
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setBackgroundColor(int backgroundColor){
+    public ToolTip setBackgroundColor(int backgroundColor) {
         mBackgroundColor = backgroundColor;
         return this;
     }
 
     /**
      * Set text color
+     *
      * @param textColor
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setTextColor(int textColor){
+    public ToolTip setTextColor(int textColor) {
         mTextColor = textColor;
         return this;
     }
 
     /**
      * Set enter animation
+     *
      * @param enterAnimation
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setEnterAnimation(Animation enterAnimation){
+    public ToolTip setEnterAnimation(Animation enterAnimation) {
         mEnterAnimation = enterAnimation;
         return this;
     }
-    /**
-     * Set exit animation
-     * @param exitAnimation
-     * @return return ToolTip instance for chaining purpose
-     */
-//    TODO:
-//    public ToolTip setExitAnimation(Animation exitAnimation){
-//        mExitAnimation = exitAnimation;
-//        return this;
-//    }
+
     /**
      * Set the gravity, the setGravity is centered relative to the targeted button
+     *
      * @param gravity Gravity.CENTER, Gravity.TOP, Gravity.BOTTOM, etc
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setGravity(int gravity){
+    public ToolTip setGravity(int gravity) {
         mGravity = gravity;
         return this;
     }
+
     /**
      * Set if you want to have setShadow
+     *
      * @param shadow
      * @return return ToolTip instance for chaining purpose
      */
-    public ToolTip setShadow(boolean shadow){
+    public ToolTip setShadow(boolean shadow) {
         mShadow = shadow;
         return this;
     }
 
-    public ToolTip setOnClickListener(View.OnClickListener onClickListener){
+    public ToolTip setOnClickListener(View.OnClickListener onClickListener) {
         mOnClickListener = onClickListener;
         return this;
     }
