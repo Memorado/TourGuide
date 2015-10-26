@@ -3,6 +3,7 @@ package tourguide.tourguide;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,8 +27,8 @@ public class FrameLayoutWithHole extends FrameLayout {
     public FrameLayoutWithHole(Activity context, View view, Overlay overlay) {
         super(context);
         setWillNotDraw(false);
-        viewHole = view;
-        layoutDrawer = new LayoutDrawer(context, overlay, view);
+        this.viewHole = view;
+        this.layoutDrawer = new LayoutDrawer(context, overlay, view);
         this.overlay = overlay;
     }
 
@@ -70,7 +71,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         //first check if the location button should handle the touch event
         if (viewHole != null) {
             int[] pos = new int[2];

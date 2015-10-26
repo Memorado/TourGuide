@@ -1,12 +1,14 @@
 package tourguide.tourguidedemo;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 
+import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -31,17 +33,17 @@ public class MultipleToolTipActivity extends ActionBarActivity {
         // the return handler is used to manipulate the cleanup of all the tutorial elements
         mTutorialHandler = TourGuide.init(this)
                 .setToolTip(new ToolTip()
-                            .setTitle("Hey!")
-                            .setDescription("I'm the top guy")
-                            .setGravity(Gravity.RIGHT))
-                .setOverlay(null)
+                        .setTitle("Hey!")
+                        .setDescription("I'm the top guy")
+                        .setGravity(Gravity.RIGHT))
+                .setOverlay(new Overlay().setBackgroundColor(Color.parseColor("#66FF0000")))
                 .playOn(button);
         mTutorialHandler2 = TourGuide.init(mActivity)
                 .setToolTip(new ToolTip()
                             .setTitle("Hey!")
                             .setDescription("I'm the bottom guy")
                             .setGravity(Gravity.TOP|Gravity.LEFT))
-                .setOverlay(null)
+                .setOverlay(new Overlay().setBackgroundColor(Color.parseColor("#66FF0000")))
                 .playOn(button2);
 
         button.setOnClickListener(new View.OnClickListener(){

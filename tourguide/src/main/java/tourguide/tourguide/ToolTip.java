@@ -8,107 +8,97 @@ import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 
 public class ToolTip {
-    public String mTitle, mDescription;
-    public int mBackgroundColor, mTextColor;
-    public Animation mEnterAnimation;
-    public boolean mShadow;
-    public int mGravity;
-    public View.OnClickListener mOnClickListener;
+    private String title, description;
+    private int backgroundColor, textColor;
+    private Animation enterAnimation;
+    private boolean shadow;
+    private int gravity;
+    private View.OnClickListener onClickListener;
 
     public ToolTip() {
-        mTitle = "";
-        mDescription = "";
-        mBackgroundColor = Color.WHITE;
-        mTextColor = Color.BLACK;
+        title = "";
+        description = "";
+        backgroundColor = Color.WHITE;
+        textColor = Color.BLACK;
 
-        mEnterAnimation = new AlphaAnimation(0f, 1f);
-        mEnterAnimation.setDuration(1000);
-        mEnterAnimation.setFillAfter(true);
-        mEnterAnimation.setInterpolator(new BounceInterpolator());
-        mShadow = true;
+        enterAnimation = new AlphaAnimation(0f, 1f);
+        enterAnimation.setDuration(1000);
+        enterAnimation.setFillAfter(true);
+        enterAnimation.setInterpolator(new BounceInterpolator());
+        shadow = true;
 
-        mGravity = Gravity.CENTER;
+        gravity = Gravity.CENTER;
     }
 
-    /**
-     * Set title text
-     *
-     * @param title
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setTitle(String title) {
-        mTitle = title;
+        this.title = title;
         return this;
     }
 
-    /**
-     * Set description text
-     *
-     * @param description
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setDescription(String description) {
-        mDescription = description;
+        this.description = description;
         return this;
     }
 
-    /**
-     * Set background color
-     *
-     * @param backgroundColor
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setBackgroundColor(int backgroundColor) {
-        mBackgroundColor = backgroundColor;
+        this.backgroundColor = backgroundColor;
         return this;
     }
 
-    /**
-     * Set text color
-     *
-     * @param textColor
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setTextColor(int textColor) {
-        mTextColor = textColor;
+        this.textColor = textColor;
         return this;
     }
 
-    /**
-     * Set enter animation
-     *
-     * @param enterAnimation
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setEnterAnimation(Animation enterAnimation) {
-        mEnterAnimation = enterAnimation;
+        this.enterAnimation = enterAnimation;
         return this;
     }
 
-    /**
-     * Set the gravity, the setGravity is centered relative to the targeted button
-     *
-     * @param gravity Gravity.CENTER, Gravity.TOP, Gravity.BOTTOM, etc
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setGravity(int gravity) {
-        mGravity = gravity;
+        this.gravity = gravity;
         return this;
     }
 
-    /**
-     * Set if you want to have setShadow
-     *
-     * @param shadow
-     * @return return ToolTip instance for chaining purpose
-     */
     public ToolTip setShadow(boolean shadow) {
-        mShadow = shadow;
+        this.shadow = shadow;
         return this;
     }
 
     public ToolTip setOnClickListener(View.OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
+        this.onClickListener = onClickListener;
         return this;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public int getTextColor() {
+        return textColor;
+    }
+
+    public Animation getEnterAnimation() {
+        return enterAnimation;
+    }
+
+    public boolean isShadow() {
+        return shadow;
+    }
+
+    public int getGravity() {
+        return gravity;
+    }
+
+    public View.OnClickListener getOnClickListener() {
+        return onClickListener;
     }
 }
