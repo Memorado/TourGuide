@@ -76,18 +76,6 @@ public class FrameLayoutWithHole extends FrameLayout {
         if (viewHole != null) {
             int[] pos = new int[2];
             viewHole.getLocationOnScreen(pos);
-            Log.d("tourguide", "[dispatchTouchEvent] viewHole.getHeight(): " + viewHole.getHeight());
-            Log.d("tourguide", "[dispatchTouchEvent] viewHole.getWidth(): " + viewHole.getWidth());
-
-            Log.d("tourguide", "[dispatchTouchEvent] Touch X(): " + ev.getRawX());
-            Log.d("tourguide", "[dispatchTouchEvent] Touch Y(): " + ev.getRawY());
-
-            Log.d("tourguide", "[dispatchTouchEvent] X lower bound: " + pos[0]);
-            Log.d("tourguide", "[dispatchTouchEvent] X higher bound: " + (pos[0] + viewHole.getWidth()));
-
-            Log.d("tourguide", "[dispatchTouchEvent] Y lower bound: " + pos[1]);
-            Log.d("tourguide", "[dispatchTouchEvent] Y higher bound: " + (pos[1] + viewHole.getHeight()));
-
             if (ev.getRawY() >= pos[1] && ev.getRawY() <= (pos[1] + viewHole.getHeight()) && ev.getRawX() >= pos[0] && ev.getRawX() <= (pos[0] + viewHole.getWidth())) { //location button event
                 Log.d("tourguide", "to the BOTTOM!");
                 Log.d("tourguide", "" + ev.getAction());
