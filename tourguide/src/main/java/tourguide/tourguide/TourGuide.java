@@ -3,7 +3,6 @@ package tourguide.tourguide;
 import android.app.Activity;
 import android.graphics.Point;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,16 +135,11 @@ public class TourGuide {
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                // make sure this only run once
                 mHighlightedView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
-                /* Initialize a frame layout with a hole */
                 mFrameLayout = new FrameLayoutWithHole(mActivity, mHighlightedView, mOverlay);
-                /* handle click disable */
                 handleDisableClicking(mFrameLayout);
-
                 setupFrameLayout();
-                /* setup tooltip view */
                 setupToolTip();
             }
         });
@@ -172,6 +166,7 @@ public class TourGuide {
 
     private void setupToolTip() {
         final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        final TooltipCalculator tooltipCalculator = new TooltipCalculator(mHighlightedView);
 
         if (mToolTip != null) {
             /* inflate and get views */
@@ -220,12 +215,12 @@ public class TourGuide {
 
             // calculate x position, based on gravity, tooltipMeasuredWidth, parent max width, x position of target view, adjustment
             if (toolTipMeasuredWidth > parent.getWidth()) {
-                resultPoint.x = getXForTooTip(mToolTip.mGravity, parent.getWidth(), targetViewX, adjustment);
+                resultPoint.x = tooltipCalculator.getXForTooTip(mToolTip.mGravity, parent.getWidth(), targetViewX, adjustment);
             } else {
-                resultPoint.x = getXForTooTip(mToolTip.mGravity, toolTipMeasuredWidth, targetViewX, adjustment);
+                resultPoint.x = tooltipCalculator.getXForTooTip(mToolTip.mGravity, toolTipMeasuredWidth, targetViewX, adjustment);
             }
 
-            resultPoint.y = getYForTooTip(mToolTip.mGravity, toolTipMeasuredHeight, targetViewY, adjustment);
+            resultPoint.y = tooltipCalculator.getYForTooTip(mToolTip.mGravity, toolTipMeasuredHeight, targetViewY, adjustment);
 
             parent.addView(mToolTipViewGroup, layoutParams);
 
@@ -263,7 +258,7 @@ public class TourGuide {
 
                     int fixedY;
                     int toolTipHeightAfterLayouted = mToolTipViewGroup.getHeight();
-                    fixedY = getYForTooTip(mToolTip.mGravity, toolTipHeightAfterLayouted, targetViewY, adjustment);
+                    fixedY = tooltipCalculator.getYForTooTip(mToolTip.mGravity, toolTipHeightAfterLayouted, targetViewY, adjustment);
                     layoutParams.setMargins((int) mToolTipViewGroup.getX(), fixedY, 0, 0);
                 }
             });
@@ -274,45 +269,15 @@ public class TourGuide {
 
     }
 
-    private int getXForTooTip(int gravity, int toolTipMeasuredWidth, int targetViewX, float adjustment) {
-        int x;
-        if ((gravity & Gravity.LEFT) == Gravity.LEFT) {
-            x = targetViewX - toolTipMeasuredWidth + (int) adjustment;
-        } else if ((gravity & Gravity.RIGHT) == Gravity.RIGHT) {
-            x = targetViewX + mHighlightedView.getWidth() - (int) adjustment;
-        } else {
-            x = targetViewX + mHighlightedView.getWidth() / 2 - toolTipMeasuredWidth / 2;
-        }
-        return x;
-    }
-
-    private int getYForTooTip(int gravity, int toolTipMeasuredHeight, int targetViewY, float adjustment) {
-        int y;
-        if ((gravity & Gravity.TOP) == Gravity.TOP) {
-
-            if (((gravity & Gravity.LEFT) == Gravity.LEFT) || ((gravity & Gravity.RIGHT) == Gravity.RIGHT)) {
-                y = targetViewY - toolTipMeasuredHeight + (int) adjustment;
-            } else {
-                y = targetViewY - toolTipMeasuredHeight - (int) adjustment;
-            }
-        } else { // this is center
-            if (((gravity & Gravity.LEFT) == Gravity.LEFT) || ((gravity & Gravity.RIGHT) == Gravity.RIGHT)) {
-                y = targetViewY + mHighlightedView.getHeight() - (int) adjustment;
-            } else {
-                y = targetViewY + mHighlightedView.getHeight() + (int) adjustment;
-            }
-        }
-        return y;
-    }
 
     private void setupFrameLayout() {
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        );
         ViewGroup contentArea = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
         int[] pos = new int[2];
         contentArea.getLocationOnScreen(pos);
-        // frameLayoutWithHole's coordinates are calculated taking full screen height into account
-        // but we're adding it to the content area only, so we need to offset it to the same Y value of contentArea
-
         layoutParams.setMargins(0, -pos[1], 0, 0);
         contentArea.addView(mFrameLayout, layoutParams);
     }
