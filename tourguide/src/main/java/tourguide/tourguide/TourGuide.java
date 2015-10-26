@@ -147,12 +147,12 @@ public class TourGuide {
 
     private void handleDisableClicking(FrameLayoutWithHole frameLayoutWithHole) {
         // 1. if user provides an overlay listener, use that as 1st priority
-        if (mOverlay != null && mOverlay.mOnClickListener != null) {
+        if (mOverlay != null && mOverlay.getOnClickListener() != null) {
             frameLayoutWithHole.setClickable(true);
-            frameLayoutWithHole.setOnClickListener(mOverlay.mOnClickListener);
+            frameLayoutWithHole.setOnClickListener(mOverlay.getOnClickListener());
         }
         // 2. if overlay listener is not provided, check if it's disabled
-        else if (mOverlay != null && mOverlay.mDisableClick) {
+        else if (mOverlay != null && mOverlay.isDisableClick()) {
             Log.w("tourguide", "Overlay's default OnClickListener is null, it will proceed to next tourguide when it is clicked");
             frameLayoutWithHole.setViewHole(mHighlightedView);
             frameLayoutWithHole.setSoundEffectsEnabled(false);

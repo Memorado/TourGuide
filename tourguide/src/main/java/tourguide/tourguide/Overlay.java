@@ -8,11 +8,11 @@ import android.view.animation.Animation;
  * Created by tanjunrong on 6/20/15.
  */
 public class Overlay {
-    public int mBackgroundColor;
-    public boolean mDisableClick;
-    public Style mStyle;
-    public Animation mEnterAnimation, mExitAnimation;
-    public View.OnClickListener mOnClickListener;
+    private int backgroundColor;
+    private boolean disableClick;
+    private Style style;
+    private Animation enterAnimation, exitAnimation;
+    private View.OnClickListener onClickListener;
 
     public enum Style {
         Circle, Rectangle
@@ -23,68 +23,62 @@ public class Overlay {
     }
 
     public Overlay(boolean disableClick, int backgroundColor, Style style) {
-        mDisableClick = disableClick;
-        mBackgroundColor = backgroundColor;
-        mStyle = style;
+        this.disableClick = disableClick;
+        this.backgroundColor = backgroundColor;
+        this.style = style;
     }
 
-    /**
-     * Set background color
-     *
-     * @param backgroundColor
-     * @return return ToolTip instance for chaining purpose
-     */
     public Overlay setBackgroundColor(int backgroundColor) {
-        mBackgroundColor = backgroundColor;
+        this.backgroundColor = backgroundColor;
         return this;
     }
 
-    /**
-     * Set to true if you want to block all user input to pass through this overlay, set to false if you want to allow user input under the overlay
-     *
-     * @param yes_no
-     * @return return Overlay instance for chaining purpose
-     */
     public Overlay disableClick(boolean yes_no) {
-        mDisableClick = yes_no;
+        disableClick = yes_no;
         return this;
     }
 
     public Overlay setStyle(Style style) {
-        mStyle = style;
+        this.style = style;
         return this;
     }
 
-    /**
-     * Set enter animation
-     *
-     * @param enterAnimation
-     * @return return Overlay instance for chaining purpose
-     */
     public Overlay setEnterAnimation(Animation enterAnimation) {
-        mEnterAnimation = enterAnimation;
+        this.enterAnimation = enterAnimation;
         return this;
     }
 
-    /**
-     * Set exit animation
-     *
-     * @param exitAnimation
-     * @return return Overlay instance for chaining purpose
-     */
     public Overlay setExitAnimation(Animation exitAnimation) {
-        mExitAnimation = exitAnimation;
+        this.exitAnimation = exitAnimation;
         return this;
     }
 
-    /**
-     * Set onClickListener for the Overlay
-     *
-     * @param onClickListener
-     * @return return Overlay instance for chaining purpose
-     */
     public Overlay setOnClickListener(View.OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
+        this.onClickListener = onClickListener;
         return this;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public boolean isDisableClick() {
+        return disableClick;
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public Animation getEnterAnimation() {
+        return enterAnimation;
+    }
+
+    public Animation getExitAnimation() {
+        return exitAnimation;
+    }
+
+    public View.OnClickListener getOnClickListener() {
+        return onClickListener;
     }
 }

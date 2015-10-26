@@ -20,7 +20,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     private Activity mActivity;
     private Paint mEraser;
 
-    Bitmap mEraserBitmap;
+    private Bitmap mEraserBitmap;
     private Canvas mEraserCanvas;
     private View mViewHole;
     private int mRadius;
@@ -82,7 +82,7 @@ public class FrameLayoutWithHole extends FrameLayout {
 
     protected void cleanUp() {
         if (getParent() != null) {
-            if (mOverlay != null && mOverlay.mExitAnimation != null) {
+            if (mOverlay != null && mOverlay.getExitAnimation() != null) {
                 performOverlayExitAnimation();
             } else {
                 ((ViewGroup) this.getParent()).removeView(this);
@@ -95,7 +95,7 @@ public class FrameLayoutWithHole extends FrameLayout {
             final FrameLayout _pointerToFrameLayout = this;
             mCleanUpLock = true;
             Log.d("tourguide", "Overlay exit animation listener is overwritten...");
-            mOverlay.mExitAnimation.setAnimationListener(new Animation.AnimationListener() {
+            mOverlay.getExitAnimation().setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
                 }
@@ -109,7 +109,7 @@ public class FrameLayoutWithHole extends FrameLayout {
                     ((ViewGroup) _pointerToFrameLayout.getParent()).removeView(_pointerToFrameLayout);
                 }
             });
-            this.startAnimation(mOverlay.mExitAnimation);
+            this.startAnimation(mOverlay.getExitAnimation());
         }
     }
 
@@ -153,9 +153,9 @@ public class FrameLayoutWithHole extends FrameLayout {
         mEraserBitmap.eraseColor(Color.TRANSPARENT);
 
         if (mOverlay != null) {
-            mEraserCanvas.drawColor(mOverlay.mBackgroundColor);
+            mEraserCanvas.drawColor(mOverlay.getBackgroundColor());
             int padding = (int) (10 * mDensity);
-            if (mOverlay.mStyle == Overlay.Style.Rectangle) {
+            if (mOverlay.getStyle() == Overlay.Style.Rectangle) {
                 mEraserCanvas.drawRect(mViewHolePosition[0] - padding, mViewHolePosition[1] - padding, mViewHolePosition[0] + mViewHole.getWidth() + padding, mViewHolePosition[1] + mViewHole.getHeight() + padding, mEraser);
             } else {
                 mEraserCanvas.drawCircle(mViewHolePosition[0] + mViewHole.getWidth() / 2, mViewHolePosition[1] + mViewHole.getHeight() / 2, mRadius, mEraser);
@@ -168,8 +168,8 @@ public class FrameLayoutWithHole extends FrameLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (mOverlay != null && mOverlay.mEnterAnimation != null) {
-            this.startAnimation(mOverlay.mEnterAnimation);
+        if (mOverlay != null && mOverlay.getEnterAnimation() != null) {
+            this.startAnimation(mOverlay.getEnterAnimation());
         }
     }
 }
