@@ -19,7 +19,6 @@ public class MyApplication extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
-        /* This is for checking memory leak: https://github.com/square/leakcanary */
         _refWatcher = LeakCanary.install(this);
     }
 }

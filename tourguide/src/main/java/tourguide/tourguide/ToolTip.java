@@ -19,11 +19,10 @@ public class ToolTip {
     public View.OnClickListener mOnClickListener;
 
     public ToolTip() {
-        /* default values */
         mTitle = "";
         mDescription = "";
-        mBackgroundColor = Color.parseColor("#3498db");
-        mTextColor = Color.parseColor("#FFFFFF");
+        mBackgroundColor = Color.WHITE;
+        mTextColor = Color.BLACK;
 
         mEnterAnimation = new AlphaAnimation(0f, 1f);
         mEnterAnimation.setDuration(1000);
@@ -31,7 +30,6 @@ public class ToolTip {
         mEnterAnimation.setInterpolator(new BounceInterpolator());
         mShadow = true;
 
-        // TODO: exit animation
         mGravity = Gravity.CENTER;
     }
 

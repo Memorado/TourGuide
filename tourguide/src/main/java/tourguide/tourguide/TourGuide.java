@@ -12,19 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class TourGuide {
-    /**
-     * This describes the animation techniques
-     */
-    public enum Technique {
-        Click, HorizontalLeft, HorizontalRight, VerticalUpward, VerticalDownward
-    }
-
-    /**
-     * This describes the allowable motion, for example if you want the users to learn about clicking, but want to stop them from swiping, then use ClickOnly
-     */
-    public enum MotionType {
-        AllowAll, ClickOnly, SwipeOnly
-    }
 
     private View mHighlightedView;
     private Activity mActivity;
