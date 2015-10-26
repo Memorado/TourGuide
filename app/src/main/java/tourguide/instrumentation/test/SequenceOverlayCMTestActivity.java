@@ -108,7 +108,6 @@ public class SequenceOverlayCMTestActivity extends ActionBarActivity {
         Sequence sequence = new Sequence.SequenceBuilder()
                                 .add(mOverlayTG1, mOverlayTG2, mOverlayTG3)
                                 .setDefaultOverlay(mDefaultOverlay)
-                                .setDefaultPointer(null)
                                 .setContinueMethod(Sequence.ContinueMethod.Overlay)
                                 .build();
 

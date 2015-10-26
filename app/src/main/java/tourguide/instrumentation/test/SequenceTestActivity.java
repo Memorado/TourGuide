@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.Sequence;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
@@ -140,7 +139,6 @@ public class SequenceTestActivity extends ActionBarActivity {
                                 mTutorialHandler.next();
                             }
                         }))
-                .setDefaultPointer(new Pointer())
                 .setContinueMethod(Sequence.ContinueMethod.Overlay)
                 .build();
 
@@ -185,7 +183,6 @@ public class SequenceTestActivity extends ActionBarActivity {
                                 mTutorialHandler.next();
                             }
                         }))
-                .setDefaultPointer(new Pointer())
                 .setContinueMethod(Sequence.ContinueMethod.OverlayListener)
                 .build();
 

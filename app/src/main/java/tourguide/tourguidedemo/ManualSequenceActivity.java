@@ -10,7 +10,6 @@ import android.view.animation.Animation;
 import android.widget.Button;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -18,7 +17,7 @@ import tourguide.tourguide.TourGuide;
  * InSequenceActivity demonstrates how to use TourGuide in sequence one after another
  */
 public class ManualSequenceActivity extends ActionBarActivity {
-    public TourGuide mTutorialHandler, mTutorialHandler2;
+    public TourGuide mTutorialHandler;
     public Activity mActivity;
 
     @Override
@@ -41,9 +40,7 @@ public class ManualSequenceActivity extends ActionBarActivity {
         exitAnimation.setDuration(600);
         exitAnimation.setFillAfter(true);
 
-        /* initialize TourGuide without playOn() */
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                           .setPointer(new Pointer())
+        mTutorialHandler = TourGuide.init(this)
                            .setToolTip(new ToolTip()
                                            .setTitle("Hey!")
                                            .setDescription("I'm the top fellow")

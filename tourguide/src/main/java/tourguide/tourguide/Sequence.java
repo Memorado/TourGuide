@@ -9,7 +9,6 @@ public class Sequence {
     TourGuide [] mTourGuideArray;
     Overlay mDefaultOverlay;
     ToolTip mDefaultToolTip;
-    Pointer mDefaultPointer;
 
     ContinueMethod mContinueMethod;
     boolean mDisableTargetButton;
@@ -22,7 +21,6 @@ public class Sequence {
         this.mTourGuideArray = builder.mTourGuideArray;
         this.mDefaultOverlay = builder.mDefaultOverlay;
         this.mDefaultToolTip = builder.mDefaultToolTip;
-        this.mDefaultPointer = builder.mDefaultPointer;
         this.mContinueMethod = builder.mContinueMethod;
         this.mCurrentSequence = builder.mCurrentSequence;
 
@@ -82,20 +80,11 @@ public class Sequence {
         return mTourGuideArray[mCurrentSequence].mOverlay;
     }
 
-    public Pointer getPointer() {
-        // individual tour guide has higher priority
-        if (mTourGuideArray[mCurrentSequence].mPointer != null){
-            return mTourGuideArray[mCurrentSequence].mPointer;
-        } else {
-            return mDefaultPointer;
-        }
-    }
 
     public static class SequenceBuilder {
         TourGuide [] mTourGuideArray;
         Overlay mDefaultOverlay;
         ToolTip mDefaultToolTip;
-        Pointer mDefaultPointer;
         ContinueMethod mContinueMethod;
         int mCurrentSequence;
         boolean mDisableTargetButton;
@@ -110,16 +99,6 @@ public class Sequence {
             return this;
         }
 
-        // This might not be useful, but who knows.. maybe someone needs it
-        public SequenceBuilder setDefaultToolTip(ToolTip defaultToolTip){
-            mDefaultToolTip = defaultToolTip;
-            return this;
-        }
-
-        public SequenceBuilder setDefaultPointer(Pointer defaultPointer){
-            mDefaultPointer = defaultPointer;
-            return this;
-        }
 
         // TODO: this is an uncompleted feature, make it private first
         // This is intended to be used to disable the button, so people cannot click on in during a Tour, instead, people can only click on Next button or Overlay to proceed

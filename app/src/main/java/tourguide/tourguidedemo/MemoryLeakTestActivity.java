@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.squareup.leakcanary.RefWatcher;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -32,8 +31,7 @@ public class MemoryLeakTestActivity extends ActionBarActivity {
 
         Button button = (Button)findViewById(R.id.button);
 
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                .setPointer(new Pointer())
+        mTutorialHandler = TourGuide.init(this)
                 .setToolTip(new ToolTip()
                             .setTitle("Hey!")
                             .setDescription("Let's hope that there's no memory leak..."))

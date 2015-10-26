@@ -115,7 +115,6 @@ public class OverlaySequenceTourActivity extends ActionBarActivity {
                                                        .setEnterAnimation(mEnterAnimation)
                                                        .setExitAnimation(mExitAnimation)
                                                   )
-                                .setDefaultPointer(null)
                                 .setContinueMethod(Sequence.ContinueMethod.Overlay)
                                 .build();
 
@@ -176,7 +175,6 @@ public class OverlaySequenceTourActivity extends ActionBarActivity {
                                                            }
                                                        })
                                                   )
-                                .setDefaultPointer(null)
                                 .setContinueMethod(Sequence.ContinueMethod.OverlayListener)
                                 .build();
 

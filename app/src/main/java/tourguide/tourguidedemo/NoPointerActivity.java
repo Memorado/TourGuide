@@ -1,7 +1,6 @@
 package tourguide.tourguidedemo;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -18,9 +17,6 @@ public class NoPointerActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /* Get parameters from main activity */
-        Intent intent = getIntent();
-
         super.onCreate(savedInstanceState);
         mActivity = this;
         setContentView(R.layout.activity_basic);
@@ -32,8 +28,7 @@ public class NoPointerActivity extends ActionBarActivity {
                 setDescription("Click on Get Started to begin...");
 
         // the return handler is used to manipulate the cleanup of all the tutorial elements
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                .setPointer(null) // set pointer to null
+        mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip)
                 .setOverlay(new Overlay())
                 .playOn(button);

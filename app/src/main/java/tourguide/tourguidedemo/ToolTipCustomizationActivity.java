@@ -13,7 +13,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -48,10 +47,9 @@ public class ToolTipCustomizationActivity extends ActionBarActivity {
                             .setEnterAnimation(animation);
 
 
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
+        mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip)
                 .setOverlay(new Overlay())
-                .setPointer(new Pointer())
                 .playOn(button);
 
         button.setOnClickListener(new View.OnClickListener(){

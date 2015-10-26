@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -48,8 +47,7 @@ public class OverlayCustomizationActivity extends ActionBarActivity {
                 });
 
         // the return handler is used to manipulate the cleanup of all the tutorial elements
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                .setPointer(new Pointer())
+        mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip)
                 .setOverlay(overlay)
                 .playOn(button);

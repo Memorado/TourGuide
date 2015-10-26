@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import tourguide.tourguide.Overlay;
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -63,9 +62,7 @@ public class ToolbarActivity extends ActionBarActivity {
                             .setDescription("Click on Get Started to begin...")
                             .setGravity(Gravity.LEFT|Gravity.BOTTOM);
 
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                            .motionType(TourGuide.MotionType.ClickOnly)
-                            .setPointer(new Pointer())
+        mTutorialHandler = TourGuide.init(this)
                             .setToolTip(toolTip)
                             .setOverlay(new Overlay())
                             .playOn(button);

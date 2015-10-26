@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 
-import tourguide.tourguide.Pointer;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
 
@@ -30,16 +29,14 @@ public class MultipleToolTipActivity extends ActionBarActivity {
         Button button2 = (Button)findViewById(R.id.button2);
 
         // the return handler is used to manipulate the cleanup of all the tutorial elements
-        mTutorialHandler = TourGuide.init(this).with(TourGuide.Technique.Click)
-                .setPointer(new Pointer())
+        mTutorialHandler = TourGuide.init(this)
                 .setToolTip(new ToolTip()
                             .setTitle("Hey!")
                             .setDescription("I'm the top guy")
                             .setGravity(Gravity.RIGHT))
                 .setOverlay(null)
                 .playOn(button);
-        mTutorialHandler2 = TourGuide.init(mActivity).with(TourGuide.Technique.Click)
-                .setPointer(new Pointer())
+        mTutorialHandler2 = TourGuide.init(mActivity)
                 .setToolTip(new ToolTip()
                             .setTitle("Hey!")
                             .setDescription("I'm the bottom guy")
