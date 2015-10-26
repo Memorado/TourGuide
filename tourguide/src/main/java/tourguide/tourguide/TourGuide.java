@@ -140,7 +140,7 @@ public class TourGuide {
                 mFrameLayout = new FrameLayoutWithHole(mActivity, mHighlightedView, mOverlay);
                 handleDisableClicking(mFrameLayout);
                 setupFrameLayout(mFrameLayout);
-                setupToolTip();
+                setupToolTip(mToolTip);
             }
         });
     }
@@ -164,8 +164,8 @@ public class TourGuide {
         }
     }
 
-    private void setupToolTip() {
-        if (mToolTip == null) {
+    private void setupToolTip(final ToolTip toolTip) {
+        if (toolTip == null) {
             return;
         }
 
@@ -173,19 +173,12 @@ public class TourGuide {
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT
         );
-        final TooltipCalculator tooltipCalculator = new TooltipCalculator(mHighlightedView);
 
-            /* inflate and get views */
         ViewGroup parent = (ViewGroup) mActivity.getWindow().getDecorView();
-        mToolTipViewGroup = inflateTooltip(mToolTip);
 
-
-        mToolTipViewGroup.startAnimation(mToolTip.getEnterAnimation());
-
-        /* add setShadow if it's turned on */
-        if (mToolTip.isShadow()) {
-            mToolTipViewGroup.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.drop_shadow));
-        }
+        mToolTipViewGroup = initTooltipView(toolTip);
+        mToolTipViewGroup.startAnimation(toolTip.getEnterAnimation());
+        addShadow(toolTip, mToolTipViewGroup);
 
         /* position and size calculation */
         int[] pos = new int[2];
@@ -199,17 +192,16 @@ public class TourGuide {
         int toolTipMeasuredHeight = mToolTipViewGroup.getMeasuredHeight();
 
         Point resultPoint = new Point(); // this holds the final position of tooltip
-        float density = mActivity.getResources().getDisplayMetrics().density;
-        final float adjustment = 10 * density; //adjustment is that little overlapping area of tooltip and targeted button
 
+        final TooltipCalculator tooltipCalculator = new TooltipCalculator(mHighlightedView);
         // calculate x position, based on gravity, tooltipMeasuredWidth, parent max width, x position of target view, adjustment
         if (toolTipMeasuredWidth > parent.getWidth()) {
-            resultPoint.x = tooltipCalculator.getXForTooTip(mToolTip.getGravity(), parent.getWidth(), targetViewX, adjustment);
+            resultPoint.x = tooltipCalculator.getXForTooTip(toolTip.getGravity(), parent.getWidth(), targetViewX);
         } else {
-            resultPoint.x = tooltipCalculator.getXForTooTip(mToolTip.getGravity(), toolTipMeasuredWidth, targetViewX, adjustment);
+            resultPoint.x = tooltipCalculator.getXForTooTip(toolTip.getGravity(), toolTipMeasuredWidth, targetViewX);
         }
 
-        resultPoint.y = tooltipCalculator.getYForTooTip(mToolTip.getGravity(), toolTipMeasuredHeight, targetViewY, adjustment);
+        resultPoint.y = tooltipCalculator.getYForTooTip(toolTip.getGravity(), toolTipMeasuredHeight, targetViewY);
 
         parent.addView(mToolTipViewGroup, layoutParams);
 
@@ -229,16 +221,6 @@ public class TourGuide {
             mToolTipViewGroup.getLayoutParams().width = parent.getWidth() - resultPoint.x; //since point.x is negative, use plus
         }
 
-        // pass toolTip onClickListener into toolTipViewGroup
-        if (mToolTip.getOnClickListener() != null) {
-            mToolTipViewGroup.setOnClickListener(mToolTip.getOnClickListener());
-        }
-
-        // TODO: no boundary check for height yet, this is a unlikely case though
-        // height boundary can be fixed by user changing the gravity to the other size, since there are plenty of space vertically compared to horizontally
-
-        // this needs an viewTreeObserver, that's because TextView measurement of it's vertical height is not accurate (didn't take into account of multiple lines yet) before it's rendered
-        // re-calculate height again once it's rendered
         final ViewTreeObserver viewTreeObserver = mToolTipViewGroup.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -247,7 +229,7 @@ public class TourGuide {
 
                 int fixedY;
                 int toolTipHeightAfterLayouted = mToolTipViewGroup.getHeight();
-                fixedY = tooltipCalculator.getYForTooTip(mToolTip.getGravity(), toolTipHeightAfterLayouted, targetViewY, adjustment);
+                fixedY = tooltipCalculator.getYForTooTip(toolTip.getGravity(), toolTipHeightAfterLayouted, targetViewY);
                 layoutParams.setMargins((int) mToolTipViewGroup.getX(), fixedY, 0, 0);
             }
         });
@@ -256,7 +238,13 @@ public class TourGuide {
         layoutParams.setMargins(resultPoint.x, resultPoint.y, 0, 0);
     }
 
-    private View inflateTooltip(ToolTip toolTip) {
+    private void addShadow(ToolTip toolTip, View tooltipView) {
+        if (toolTip.isShadow()) {
+            tooltipView.setBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.drop_shadow));
+        }
+    }
+
+    private View initTooltipView(ToolTip toolTip) {
         LayoutInflater layoutInflater = mActivity.getLayoutInflater();
         View root = layoutInflater.inflate(R.layout.tooltip, null);
         View toolTipContainer = root.findViewById(R.id.toolTip_container);
@@ -274,6 +262,10 @@ public class TourGuide {
             toolTipDescriptionTV.setVisibility(View.GONE);
         } else {
             toolTipDescriptionTV.setText(toolTip.getDescription());
+        }
+
+        if (toolTip.getOnClickListener() != null) {
+            root.setOnClickListener(toolTip.getOnClickListener());
         }
         return root;
     }
