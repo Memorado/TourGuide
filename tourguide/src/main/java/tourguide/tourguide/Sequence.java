@@ -62,10 +62,6 @@ public class Sequence {
         return mDefaultOverlay;
     }
 
-    public ToolTip getDefaultToolTip() {
-        return mDefaultToolTip;
-    }
-
     public ToolTip getToolTip() {
         // individual tour guide has higher priority
         if (mTourGuideArray[mCurrentSequence].mToolTip != null){

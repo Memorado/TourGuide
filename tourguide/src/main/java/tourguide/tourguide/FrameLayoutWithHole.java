@@ -24,7 +24,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     private Canvas mEraserCanvas;
     private View mViewHole;
     private int mRadius;
-    private int[] mPos;
+    private int[] mViewHolePosition;
     private float mDensity;
     private Overlay mOverlay;
 
@@ -48,7 +48,7 @@ public class FrameLayoutWithHole extends FrameLayout {
 
         int[] pos = new int[2];
         mViewHole.getLocationOnScreen(pos);
-        mPos = pos;
+        mViewHolePosition = pos;
 
         mDensity = context.getResources().getDisplayMetrics().density;
         int padding = (int) (20 * mDensity);
@@ -156,9 +156,9 @@ public class FrameLayoutWithHole extends FrameLayout {
             mEraserCanvas.drawColor(mOverlay.mBackgroundColor);
             int padding = (int) (10 * mDensity);
             if (mOverlay.mStyle == Overlay.Style.Rectangle) {
-                mEraserCanvas.drawRect(mPos[0] - padding, mPos[1] - padding, mPos[0] + mViewHole.getWidth() + padding, mPos[1] + mViewHole.getHeight() + padding, mEraser);
+                mEraserCanvas.drawRect(mViewHolePosition[0] - padding, mViewHolePosition[1] - padding, mViewHolePosition[0] + mViewHole.getWidth() + padding, mViewHolePosition[1] + mViewHole.getHeight() + padding, mEraser);
             } else {
-                mEraserCanvas.drawCircle(mPos[0] + mViewHole.getWidth() / 2, mPos[1] + mViewHole.getHeight() / 2, mRadius, mEraser);
+                mEraserCanvas.drawCircle(mViewHolePosition[0] + mViewHole.getWidth() / 2, mViewHolePosition[1] + mViewHole.getHeight() / 2, mRadius, mEraser);
             }
         }
         canvas.drawBitmap(mEraserBitmap, 0, 0, null);

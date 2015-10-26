@@ -139,7 +139,7 @@ public class TourGuide {
 
                 mFrameLayout = new FrameLayoutWithHole(mActivity, mHighlightedView, mOverlay);
                 handleDisableClicking(mFrameLayout);
-                setupFrameLayout();
+                setupFrameLayout(mFrameLayout);
                 setupToolTip();
             }
         });
@@ -270,7 +270,7 @@ public class TourGuide {
     }
 
 
-    private void setupFrameLayout() {
+    private void setupFrameLayout(FrameLayout frameLayout) {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
@@ -279,7 +279,7 @@ public class TourGuide {
         int[] pos = new int[2];
         contentArea.getLocationOnScreen(pos);
         layoutParams.setMargins(0, -pos[1], 0, 0);
-        contentArea.addView(mFrameLayout, layoutParams);
+        contentArea.addView(frameLayout, layoutParams);
     }
 
 }
