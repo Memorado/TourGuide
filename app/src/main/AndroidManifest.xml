@@ -19,14 +19,8 @@
             android:name=".ToolTipGravityActivity"
             android:label="Tooltip Gravity Activity" />
         <activity
-            android:name=".ToolTipCustomizationActivity"
-            android:label="ToolTip Customization Activity" />
-        <activity
             android:name=".OverlayCustomizationActivity"
             android:label="Overlay Customization Activity" />
-        <activity
-            android:name=".MultipleToolTipActivity"
-            android:label="Multiple Tooltip Activity" />
         <activity
             android:name=".NoPointerActivity"
             android:label="NoPointer Activity" />
@@ -36,15 +30,6 @@
         <activity
             android:name=".NoOverlayActivity"
             android:label="No Overlay Activity" />
-        <activity
-            android:name=".ManualSequenceActivity"
-            android:label="Manual Sequence Activity" />
-        <activity
-            android:name=".OverlaySequenceTourActivity"
-            android:label="Overlay Activity (using Sequence Class)" />
-        <activity
-            android:name=".MemoryLeakTestActivity"
-            android:label="Memory Leak Test Activity" />
 
         <activity
             android:name=".TourGuideDemoMain"

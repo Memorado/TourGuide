@@ -11,17 +11,24 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <View
+            android:id="@+id/tooltipAnchor"
+            android:layout_width="10dp"
+            android:layout_height="20dp"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:background="#27ae60"
             android:gravity="center"
-            android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:paddingTop="20dp"
             android:text="Get Started"
             android:textColor="#fbfcfc" />
 

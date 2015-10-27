@@ -63,7 +63,7 @@ public class ToolbarActivity extends ActionBarActivity {
                             .setGravity(Gravity.LEFT|Gravity.BOTTOM);
 
         mTutorialHandler = TourGuide.init(this)
-                            .setToolTip(toolTip)
+                            .setToolTip(toolTip, button)
                             .setOverlay(new Overlay())
                             .playOn(button);
 

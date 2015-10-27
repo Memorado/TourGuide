@@ -24,15 +24,15 @@ public class NoOverlayActivity extends ActionBarActivity {
         mActivity = this;
         setContentView(R.layout.activity_basic);
 
-        Button button = (Button)findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.button);
 
         // the return handler is used to manipulate the cleanup of all the tutorial elements
         mTutorialHandler = TourGuide.init(this)
-                .setToolTip(new ToolTip().setTitle("Welcome :)").setDescription("Have a nice and fun day!"))
+                .setToolTip(new ToolTip().setTitle("Welcome :)").setDescription("Have a nice and fun day!"), button)
                 .setOverlay(null)
                 .playOn(button);
 
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mTutorialHandler.cleanUp();

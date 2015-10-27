@@ -29,7 +29,7 @@ public class NoPointerActivity extends ActionBarActivity {
 
         // the return handler is used to manipulate the cleanup of all the tutorial elements
         mTutorialHandler = TourGuide.init(this)
-                .setToolTip(toolTip)
+                .setToolTip(toolTip, button)
                 .setOverlay(new Overlay())
                 .playOn(button);
 
