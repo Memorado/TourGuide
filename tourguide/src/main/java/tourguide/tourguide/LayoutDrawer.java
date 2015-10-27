@@ -2,6 +2,7 @@ package tourguide.tourguide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -71,6 +72,13 @@ public class LayoutDrawer implements Drawer {
         int centerX = viewHighlight.getX() + view.getWidth() / 2;
         int centerY = viewHighlight.getY() + view.getHeight() / 2;
         eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius() + circlePadding, eraserPaint);
+
+        Paint paintBlur = new Paint();
+        paintBlur.set(eraserPaint);
+        paintBlur.setColor(Color.WHITE);
+        paintBlur.setStrokeWidth(30f);
+        paintBlur.setMaskFilter(new BlurMaskFilter(50, BlurMaskFilter.Blur.OUTER));
+        eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius() + circlePadding, paintBlur);
     }
 
     private void drawRect(View view, ViewHighlight viewHighlight) {
@@ -87,6 +95,7 @@ public class LayoutDrawer implements Drawer {
         paint.setColor(0xFFFFFFFF);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+
         return paint;
     }
 

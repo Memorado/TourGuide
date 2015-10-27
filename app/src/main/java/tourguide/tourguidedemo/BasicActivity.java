@@ -49,7 +49,7 @@ public class BasicActivity extends ActionBarActivity {
 
                 mTutorialHandler = TourGuide.init(BasicActivity.this)
                         .setToolTip(toolTip, findViewById(R.id.tooltipAnchor))
-                        .setOverlay(new Overlay().setBackgroundColor(Color.parseColor("#66FF0000")).setEnterAnimation(enterAnimation))
+                        .setOverlay(new Overlay().setBackgroundColor(Color.parseColor("#A9020C2C")).setEnterAnimation(enterAnimation))
                         .addTarget(button1, ViewHighlight.Style.CIRCLE)
                         .addTarget(button2, ViewHighlight.Style.RECT)
                         .play();
