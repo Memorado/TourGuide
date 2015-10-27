@@ -11,24 +11,19 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
-@SuppressLint("ViewConstructor")
-public class FrameLayoutWithHole extends FrameLayout {
-    private View viewHole;
+import java.util.Map;
 
+@SuppressLint("ViewConstructor")
+public class FrameLayoutWithHighlights extends FrameLayout {
     private Overlay overlay;
     private boolean cleanUpLock = false;
 
     private Drawer layoutDrawer;
 
-    public void setViewHole(View viewHole) {
-        this.viewHole = viewHole;
-    }
-
-    public FrameLayoutWithHole(Activity context, View view, Overlay overlay) {
+    public FrameLayoutWithHighlights(Activity context, Map<View, ViewHighlight> viewMap, Overlay overlay) {
         super(context);
         setWillNotDraw(false);
-        this.viewHole = view;
-        this.layoutDrawer = new LayoutDrawer(context, overlay, view);
+        this.layoutDrawer = new LayoutDrawer(context, overlay, viewMap);
         this.overlay = overlay;
     }
 
@@ -57,7 +52,7 @@ public class FrameLayoutWithHole extends FrameLayout {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    ((ViewGroup) FrameLayoutWithHole.this.getParent()).removeView(FrameLayoutWithHole.this);
+                    ((ViewGroup) FrameLayoutWithHighlights.this.getParent()).removeView(FrameLayoutWithHighlights.this);
                 }
             });
             this.startAnimation(overlay.getExitAnimation());
@@ -73,6 +68,7 @@ public class FrameLayoutWithHole extends FrameLayout {
     @Override
     public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
         //first check if the location button should handle the touch event
+        /*
         if (viewHole != null) {
             int[] pos = new int[2];
             viewHole.getLocationOnScreen(pos);
@@ -82,6 +78,7 @@ public class FrameLayoutWithHole extends FrameLayout {
                 return false;
             }
         }
+        */
         return super.dispatchTouchEvent(ev);
     }
 

@@ -10,22 +10,16 @@ import android.view.animation.Animation;
 public class Overlay {
     private int backgroundColor;
     private boolean disableClick;
-    private Style style;
     private Animation enterAnimation, exitAnimation;
     private View.OnClickListener onClickListener;
 
-    public enum Style {
-        Circle, Rectangle
-    }
-
     public Overlay() {
-        this(true, Color.parseColor("#55000000"), Style.Circle);
+        this(true, Color.parseColor("#55000000"));
     }
 
-    public Overlay(boolean disableClick, int backgroundColor, Style style) {
+    public Overlay(boolean disableClick, int backgroundColor) {
         this.disableClick = disableClick;
         this.backgroundColor = backgroundColor;
-        this.style = style;
     }
 
     public Overlay setBackgroundColor(int backgroundColor) {
@@ -33,13 +27,8 @@ public class Overlay {
         return this;
     }
 
-    public Overlay disableClick(boolean yes_no) {
-        disableClick = yes_no;
-        return this;
-    }
-
-    public Overlay setStyle(Style style) {
-        this.style = style;
+    public Overlay disableClick(boolean disableClick) {
+        this.disableClick = disableClick;
         return this;
     }
 
@@ -64,10 +53,6 @@ public class Overlay {
 
     public boolean isDisableClick() {
         return disableClick;
-    }
-
-    public Style getStyle() {
-        return style;
     }
 
     public Animation getEnterAnimation() {

@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
+import tourguide.tourguide.ViewHighlight;
 
 
 public class NoOverlayActivity extends ActionBarActivity {
@@ -30,7 +31,8 @@ public class NoOverlayActivity extends ActionBarActivity {
         mTutorialHandler = TourGuide.init(this)
                 .setToolTip(new ToolTip().setTitle("Welcome :)").setDescription("Have a nice and fun day!"), button)
                 .setOverlay(null)
-                .playOn(button);
+                .addTarget(button, ViewHighlight.Style.CIRCLE)
+                .play();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

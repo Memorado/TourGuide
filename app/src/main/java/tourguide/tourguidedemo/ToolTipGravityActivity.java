@@ -12,6 +12,7 @@ import android.widget.Button;
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
+import tourguide.tourguide.ViewHighlight;
 
 
 public class ToolTipGravityActivity extends ActionBarActivity {
@@ -42,7 +43,7 @@ public class ToolTipGravityActivity extends ActionBarActivity {
             setContentView(R.layout.activity_tooltip_gravity_iv);
             gravity = Gravity.RIGHT | Gravity.TOP;
         }
-        Button button = (Button)findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.button);
 
         ToolTip toolTip = new ToolTip().
                 setTitle("Welcome!").
@@ -55,9 +56,10 @@ public class ToolTipGravityActivity extends ActionBarActivity {
         mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip, button)
                 .setOverlay(new Overlay())
-                .playOn(button);
+                .addTarget(button, ViewHighlight.Style.CIRCLE)
+                .play();
 
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mTutorialHandler.cleanUp();

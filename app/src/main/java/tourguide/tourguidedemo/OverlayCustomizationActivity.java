@@ -12,6 +12,7 @@ import android.widget.Toast;
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
+import tourguide.tourguide.ViewHighlight;
 
 
 public class OverlayCustomizationActivity extends ActionBarActivity {
@@ -38,7 +39,6 @@ public class OverlayCustomizationActivity extends ActionBarActivity {
                         // Note: disable click has no effect when setOnClickListener is used, this is here for demo purpose
                         // if setOnClickListener is not used, disableClick() will take effect
                 .disableClick(false)
-                .setStyle(Overlay.Style.Rectangle)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -50,7 +50,8 @@ public class OverlayCustomizationActivity extends ActionBarActivity {
         mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip, button)
                 .setOverlay(overlay)
-                .playOn(button);
+                .addTarget(button, ViewHighlight.Style.RECT)
+                .play();
         next_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

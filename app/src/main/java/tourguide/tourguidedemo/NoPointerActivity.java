@@ -9,6 +9,7 @@ import android.widget.Button;
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
 import tourguide.tourguide.TourGuide;
+import tourguide.tourguide.ViewHighlight;
 
 
 public class NoPointerActivity extends ActionBarActivity {
@@ -22,7 +23,6 @@ public class NoPointerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_basic);
 
         Button button = (Button)findViewById(R.id.button);
-
         ToolTip toolTip = new ToolTip().
                 setTitle("Welcome!").
                 setDescription("Click on Get Started to begin...");
@@ -31,7 +31,8 @@ public class NoPointerActivity extends ActionBarActivity {
         mTutorialHandler = TourGuide.init(this)
                 .setToolTip(toolTip, button)
                 .setOverlay(new Overlay())
-                .playOn(button);
+                .addTarget(button, ViewHighlight.Style.CIRCLE)
+                .play();
 
         button.setOnClickListener(new View.OnClickListener(){
             @Override

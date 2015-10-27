@@ -10,11 +10,14 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TourGuide {
 
-    private View highlightedView;
+    private Map<View, ViewHighlight> viewMap = new HashMap<>();
     private Activity activity;
-    private FrameLayoutWithHole frameLayout;
+    private FrameLayoutWithHighlights frameLayout;
     private View toolTipViewGroup;
     private ToolTip toolTip;
     private View toolTipAnchor;
@@ -28,44 +31,27 @@ public class TourGuide {
         this.activity = activity;
     }
 
-    /**
-     * Sets the duration
-     *
-     * @param view the view in which the tutorial button will be placed on top of
-     * @return return TourGuide instance for chaining purpose
-     */
-    public TourGuide playOn(View view) {
-        highlightedView = view;
+    public TourGuide addTarget(View view, ViewHighlight.Style style) {
+        viewMap.put(view, ViewHighlight.from(view, style));
+        return this;
+    }
+
+    public TourGuide play() {
         setupView();
         return this;
     }
 
-    /**
-     * Sets the overlay
-     *
-     * @param overlay this overlay object should contain the attributes of the overlay, such as background color, animation, Style, etc
-     * @return return TourGuide instance for chaining purpose
-     */
     public TourGuide setOverlay(Overlay overlay) {
         this.overlay = overlay;
         return this;
     }
 
-    /**
-     * Set the toolTip
-     *
-     * @param toolTip this toolTip object should contain the attributes of the ToolTip, such as, the title text, and the description text, background color, etc
-     * @return return TourGuide instance for chaining purpose
-     */
     public TourGuide setToolTip(ToolTip toolTip, View anchor) {
         toolTipAnchor = anchor;
         this.toolTip = toolTip;
         return this;
     }
 
-    /**
-     * Clean up the tutorial that is added to the activity
-     */
     public void cleanUp() {
         frameLayout.cleanUp();
         if (toolTipViewGroup != null) {
@@ -73,41 +59,29 @@ public class TourGuide {
         }
     }
 
-
-    /**
-     * @return FrameLayoutWithHole that is used as overlay
-     */
-    public FrameLayoutWithHole getOverlay() {
+    public FrameLayoutWithHighlights getOverlay() {
         return frameLayout;
     }
 
     private void setupView() {
-        final ViewTreeObserver viewTreeObserver = highlightedView.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                highlightedView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-
-                frameLayout = new FrameLayoutWithHole(activity, highlightedView, overlay);
-                handleDisableClicking(frameLayout);
-                setupFrameLayout(frameLayout);
-                setupToolTip(toolTip, toolTipAnchor);
-            }
-        });
+        frameLayout = new FrameLayoutWithHighlights(activity, viewMap, overlay);
+        handleDisableClicking(frameLayout);
+        setupFrameLayout(frameLayout);
+        setupToolTip(toolTip, toolTipAnchor);
     }
 
-    private void handleDisableClicking(FrameLayoutWithHole frameLayoutWithHole) {
+    private void handleDisableClicking(FrameLayoutWithHighlights frameLayoutWithHighlights) {
         // 1. if user provides an overlay listener, use that as 1st priority
         if (overlay != null && overlay.getOnClickListener() != null) {
-            frameLayoutWithHole.setClickable(true);
-            frameLayoutWithHole.setOnClickListener(overlay.getOnClickListener());
+            frameLayoutWithHighlights.setClickable(true);
+            frameLayoutWithHighlights.setOnClickListener(overlay.getOnClickListener());
         }
         // 2. if overlay listener is not provided, check if it's disabled
         else if (overlay != null && overlay.isDisableClick()) {
             Log.w("tourguide", "Overlay's default OnClickListener is null, it will proceed to next tourguide when it is clicked");
-            frameLayoutWithHole.setViewHole(highlightedView);
-            frameLayoutWithHole.setSoundEffectsEnabled(false);
-            frameLayoutWithHole.setOnClickListener(new View.OnClickListener() {
+            //frameLayoutWithHighlights.setViewHole(highlightedView);
+            frameLayoutWithHighlights.setSoundEffectsEnabled(false);
+            frameLayoutWithHighlights.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 } // do nothing, disabled.
