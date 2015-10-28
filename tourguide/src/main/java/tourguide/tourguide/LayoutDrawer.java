@@ -19,8 +19,6 @@ public class LayoutDrawer implements Drawer {
     private Paint eraserPaint;
     private Overlay overlay;
     private Map<View, ViewHighlight> viewMap;
-    private int rectPadding;
-    private int circlePadding;
 
     public LayoutDrawer(Context context,
                         @NonNull Overlay overlay,
@@ -28,7 +26,6 @@ public class LayoutDrawer implements Drawer {
         this.overlay = overlay;
         this.viewMap = viewMap;
 
-        createPaddings(context);
         createEraser(context);
     }
 
@@ -62,30 +59,25 @@ public class LayoutDrawer implements Drawer {
         }
     }
 
-    private void createPaddings(Context context) {
-        float density = context.getResources().getDisplayMetrics().density;
-        rectPadding = (int) (10 * density);
-        circlePadding = (int) (20 * density);
-    }
-
     private void drawCircle(View view, ViewHighlight viewHighlight) {
         int centerX = viewHighlight.getX() + view.getWidth() / 2;
         int centerY = viewHighlight.getY() + view.getHeight() / 2;
-        eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius() + circlePadding, eraserPaint);
+        eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius(), eraserPaint);
 
         Paint paintBlur = new Paint();
         paintBlur.set(eraserPaint);
         paintBlur.setColor(Color.WHITE);
         paintBlur.setStrokeWidth(30f);
         paintBlur.setMaskFilter(new BlurMaskFilter(50, BlurMaskFilter.Blur.OUTER));
-        eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius() + circlePadding, paintBlur);
+        eraserCanvas.drawCircle(centerX, centerY, viewHighlight.getRadius(), paintBlur);
     }
 
     private void drawRect(View view, ViewHighlight viewHighlight) {
-        int left = viewHighlight.getX() - rectPadding;
-        int top = viewHighlight.getY() - rectPadding;
-        int right = viewHighlight.getX() + view.getWidth() + rectPadding;
-        int bottom = viewHighlight.getY() + view.getHeight() + rectPadding;
+        int left = viewHighlight.getX();
+        int top = viewHighlight.getY();
+        int right = viewHighlight.getX() + view.getWidth();
+        int bottom = viewHighlight.getY() + view.getHeight();
+
 
         eraserCanvas.drawRect(left, top, right, bottom, eraserPaint);
     }

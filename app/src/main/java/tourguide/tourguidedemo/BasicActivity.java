@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.Toast;
 
 import tourguide.tourguide.Overlay;
 import tourguide.tourguide.ToolTip;
@@ -32,6 +33,7 @@ public class BasicActivity extends ActionBarActivity {
         final View container = findViewById(R.id.container);
         final Button button1 = (Button) findViewById(R.id.button);
         final Button button2 = (Button) findViewById(R.id.button2);
+        final Button anotherButton = (Button) findViewById(R.id.anotherButton);
 
         final ToolTip toolTip = new ToolTip()
                 .setTitle(null)
@@ -50,9 +52,9 @@ public class BasicActivity extends ActionBarActivity {
                 mTutorialHandler = TourGuide.init(BasicActivity.this)
                         .setToolTip(toolTip, findViewById(R.id.tooltipAnchor))
                         .setOverlay(new Overlay()
-                                .setBackgroundColor(Color.parseColor("#A9020C2C"))
-                                .setEnterAnimation(enterAnimation)
-                                .disableClick(false)
+                                        .setBackgroundColor(Color.parseColor("#A9020C2C"))
+                                        .setEnterAnimation(enterAnimation)
+                                        .disableClick(true)
                         )
                         .addTarget(button1, ViewHighlight.Style.CIRCLE)
                         .addTarget(button2, ViewHighlight.Style.RECT)
@@ -64,6 +66,12 @@ public class BasicActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 mTutorialHandler.cleanUp();
+            }
+        });
+        anotherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BasicActivity.this, "Hello", Toast.LENGTH_SHORT).show();
             }
         });
     }

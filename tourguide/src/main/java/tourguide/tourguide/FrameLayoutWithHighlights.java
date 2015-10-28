@@ -17,6 +17,7 @@ import java.util.Map;
 public class FrameLayoutWithHighlights extends FrameLayout {
     private Overlay overlay;
     private boolean cleanUpLock = false;
+    private Map<View, ViewHighlight> viewMap;
 
     private Drawer layoutDrawer;
 
@@ -25,6 +26,7 @@ public class FrameLayoutWithHighlights extends FrameLayout {
         setWillNotDraw(false);
         this.layoutDrawer = new LayoutDrawer(context, overlay, viewMap);
         this.overlay = overlay;
+        this.viewMap = viewMap;
     }
 
     protected void cleanUp() {
@@ -67,18 +69,15 @@ public class FrameLayoutWithHighlights extends FrameLayout {
 
     @Override
     public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
-        //first check if the location button should handle the touch event
-        /*
-        if (viewHole != null) {
-            int[] pos = new int[2];
-            viewHole.getLocationOnScreen(pos);
-            if (ev.getRawY() >= pos[1] && ev.getRawY() <= (pos[1] + viewHole.getHeight()) && ev.getRawX() >= pos[0] && ev.getRawX() <= (pos[0] + viewHole.getWidth())) { //location button event
-                Log.d("tourguide", "to the BOTTOM!");
-                Log.d("tourguide", "" + ev.getAction());
-                return false;
+        for (View view : viewMap.keySet()) {
+            if (view != null) {
+                int[] pos = new int[2];
+                view.getLocationOnScreen(pos);
+                if (ev.getRawY() >= pos[1] && ev.getRawY() <= (pos[1] + view.getHeight()) && ev.getRawX() >= pos[0] && ev.getRawX() <= (pos[0] + view.getWidth())) {
+                    return false;
+                }
             }
         }
-        */
         return super.dispatchTouchEvent(ev);
     }
 
